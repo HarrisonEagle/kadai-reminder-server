@@ -65,6 +65,9 @@ def api():
     s = None
     with open("script.js") as f:
         s = f.read()
+    jquery = None
+    with open('jquery.js', errors='ignore') as f2:
+        jquery = f2.read()
     options = Options()
     options.add_argument('--headless')
     d = DesiredCapabilities.CHROME
@@ -81,13 +84,7 @@ def api():
     login_btn.click()
     if driver.current_url == "https://wsdmoodle.waseda.jp/my/":
         print("login_succeed")
-        driver.execute_script("""
-            var script = document.createElement( 'script' );
-            script.type = 'text/javascript';
-            script.src = 'https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js';
-            document.head.appendChild(script);
-            """)
-        driver.execute_script(s)
+        driver.execute_script(jquery)
         while True:
             array = driver.get_log('browser')
             if len(array) != 0:
