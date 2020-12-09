@@ -11,6 +11,7 @@ from Cryptodome import Random
 from Cryptodome.Cipher import AES #pycryptodomex
 import base64
 from hashlib import md5
+import time
 
 BLOCK_SIZE = 16
 
@@ -62,6 +63,7 @@ def hello_world():
 
 @app.route('/api', methods=['POST'])
 def api():
+    start = time.time()
     s = None
     with open("script.js") as f:
         s = f.read()
@@ -85,9 +87,11 @@ def api():
     if driver.current_url == "https://wsdmoodle.waseda.jp/my/":
         print("login_succeed")
         driver.execute_script(jquery)
+        driver.execute_script(s)
         while True:
             array = driver.get_log('browser')
             if len(array) != 0:
+                print(array[-1]["message"])
                 if "finished" in array[-1]["message"]:
                     break
         ele = driver.find_elements(By.CSS_SELECTOR, "div.w-100.event-name-container.text-truncate.line-height-3")
@@ -108,10 +112,12 @@ def api():
             child['url'] = url
             child['deadline'] = deadline
             data.append(child)
+        end = time.time()
+        print(end - start)
         return json.dumps(data, ensure_ascii=False)
     else:
         print("login_failed")
-        return jsonify({"error": "login_failed"})
+        return json.dumps({"error": "login_failed"})
 
 
 if __name__ == '__main__':
