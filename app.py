@@ -4,7 +4,6 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-import chromedriver_binary
 import json
 from flask import jsonify
 from Cryptodome import Random
