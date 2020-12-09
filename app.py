@@ -66,7 +66,7 @@ def api():
     with open("script.js") as f:
         s = f.read()
     jquery = None
-    with open('jquery.js', errors='ignore') as f2:
+    with open('jquery-3.5.1.js', errors='ignore') as f2:
         jquery = f2.read()
     options = Options()
     options.add_argument('--headless')
