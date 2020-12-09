@@ -91,7 +91,6 @@ def api():
         while True:
             array = driver.get_log('browser')
             if len(array) != 0:
-                print(array[-1]["message"])
                 if "finished" in array[-1]["message"]:
                     break
         ele = driver.find_elements(By.CSS_SELECTOR, "div.w-100.event-name-container.text-truncate.line-height-3")
@@ -102,11 +101,8 @@ def api():
             label = a.get_attribute("aria-label")
             url = a.get_attribute("href")
             name = label[0:label.find("活動は")]
-            print(url)
-            print(name)
             deadline = label[label.find("活動は") + 3:label.find("が期限です")].replace("年 ", "/").replace("月 ", "/").replace(
                 "日", "") + ":00"
-            print(deadline)
             child = {}
             child['name'] = name
             child['url'] = url
