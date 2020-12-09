@@ -110,9 +110,11 @@ def api():
             data.append(child)
         end = time.time()
         print(end - start)
+        driver.close()
         return json.dumps(data, ensure_ascii=False)
     else:
         print("login_failed")
+        driver.close()
         return json.dumps({"error": "login_failed"})
 
 
