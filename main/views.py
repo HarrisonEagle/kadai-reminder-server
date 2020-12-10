@@ -74,6 +74,10 @@ class MyThread(threading.Thread):
             start = time.time()
             dataobj = Entry.query.filter_by(name=self.username).all()
             if dataobj:
+                dataobj[0].jsondata = json.dumps({})
+                db.session.merge(dataobj[0])
+                db.session.commit()
+                dataobj = Entry.query.filter_by(name=self.username).all()
                 s = None
                 with open("script.js") as f:
                     s = f.read()
